@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product - the promise in six words</title>
+<meta name="description" content="One sentence that says what the reader gets. Under 160 characters.">
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Product - the promise in six words">
+<meta property="og:description" content="One sentence that says what the reader gets.">
+<meta property="og:image" content="https://example.com/og.png">
+<meta property="og:url" content="https://example.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#06080b">
+<script>document.documentElement.classList.add("js")</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js"}}</script>
+<style>
+:root {
+  --bg: #06080b; --ink: #eef2f7; --ink-2: #b9c2cf; --muted: #7c8696;
+  --line: rgba(255,255,255,.08); --line-2: rgba(255,255,255,.14); --blue: #4493f8;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+.wrap { width: min(1160px, 100% - 40px); margin: 0 auto; }
+.num { font-variant-numeric: tabular-nums; }
+code, .mono { font-family: var(--mono); font-size: .86em; }
+
+/* ---- layering: the world behind everything, the copy over it, the after section on solid ground */
+#world { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; opacity: 0; transition: opacity .6s ease; }
+.webgl #world { opacity: 1; }
+/* the flat poster stands in only when the 3D world can't run, never while it loads */
+.poster { display: none; }
+html:not(.js) .poster, .nowebgl .poster { display: block; position: fixed; right: 8vw; top: 50%; width: min(34vw, 420px); transform: translateY(-50%); z-index: 0; }
+main, .after { position: relative; z-index: 1; }
+
+/* ---- nav with a progress line */
+nav { position: fixed; inset: 0 0 auto; z-index: 10; backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+  background: linear-gradient(to bottom, rgba(6,8,11,.78), rgba(6,8,11,.4)); border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; align-items: center; gap: 28px; height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 650; letter-spacing: -.01em; text-decoration: none; }
+nav .links { display: flex; gap: 24px; margin-left: auto; font-size: 14px; color: var(--ink-2); }
+nav .links a { text-decoration: none; } nav .links a:hover { color: var(--ink); }
+.progress { position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; transform-origin: left; transform: scaleX(var(--p, 0)); background: var(--blue); }
+.btn { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 22px; border-radius: 999px; font-weight: 600; font-size: 15px;
+  text-decoration: none; background: var(--ink); color: #06080b; transition: transform .2s, background .2s; white-space: nowrap; }
+.btn:hover { background: #fff; transform: translateY(-1px); }
+.btn:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.btn.small { height: 36px; padding: 0 16px; font-size: 14px; }
+.textlink { font-size: 15px; color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--line-2); padding-bottom: 2px; }
+.textlink:hover { color: var(--ink); border-color: var(--ink-2); }
+
+/* ---- chapters are scroll spacers. With the 3D world running, every chapter's copy sits in one fixed column
+   and crossfades as the camera travels. Without it, copy is sticky and the page reads as an article. */
+.ch { position: relative; height: 210vh; }
+.ch[data-ch="0"] { height: 170vh; }
+.ch.center { height: 130vh; }
+.copy { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+.webgl .copy { position: fixed; inset: 0; padding: 60px 0 76px; opacity: var(--op, 0); }
+.webgl .copy .panel { transform: translateY(calc((1 - var(--op, 0)) * 28px)); }
+.copy .panel { width: min(1160px, 100% - 40px); margin: 0 auto; }
+.copy .panel > * { max-width: 520px; }
+.ch.hero .panel > * { max-width: 640px; }
+.ch.center .copy { align-items: flex-end; padding-bottom: 14vh; }
+.ch.center .panel { text-align: center; }
+.ch.center .panel > * { margin-left: auto; margin-right: auto; }
+
+/* ---- type: every size is scaled by --fit, which the fit script lowers until the panel fits its screen */
+h1 { font-size: calc(clamp(38px, min(5.4vw, 8.4vh), 74px) * var(--fit, 1)); line-height: 1.0; letter-spacing: -.042em; font-weight: 720; margin: 0 0 28px; }
+h2 { font-size: calc(clamp(30px, min(4vw, 6.6vh), 54px) * var(--fit, 1)); line-height: 1.04; letter-spacing: -.035em; font-weight: 700; margin: 0 0 20px; }
+h1 em, h2 em { font-style: normal; display: block; background: linear-gradient(180deg, #fff 0%, #9fc4ff 55%, var(--blue) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { font-size: calc(clamp(16px, min(1.45vw, 3.3vh), 21px) * var(--fit, 1)); color: var(--ink-2); margin: 0 0 min(36px, 4.5vh); max-width: 34em; }
+.sub { color: var(--ink-2); margin: 0; font-size: calc(19px * var(--fit, 1)); max-width: 34em; }
+.sub b { color: var(--ink); font-weight: 600; }
+.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.ch.center .cta { justify-content: center; margin-top: 32px; }
+.live { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: center; margin-top: min(48px, 5vh); padding-top: 22px; border-top: 1px solid var(--line); max-width: 520px; }
+.live b { font-size: 20px; font-weight: 650; color: var(--ink); }
+.live-sub { grid-column: 2; font-size: 13.5px; color: var(--muted); }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: #3fb950; box-shadow: 0 0 0 4px rgba(63,185,80,.15); }
+.scrollhint { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 2; font-size: 12px; color: var(--muted); letter-spacing: .04em; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: var(--op, 1); pointer-events: none; }
+.scrollhint i { width: 1px; height: 36px; background: linear-gradient(var(--blue), transparent); transform-origin: top; animation: drip 1.8s ease-in-out infinite; }
+@keyframes drip { 0% { transform: scaleY(0); opacity: 1; } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* ---- the journey rail: the stages the carrier passes, lit as it goes */
+.rail { display: none; }
+.webgl .rail { display: flex; position: fixed; left: 0; right: 0; bottom: 30px; z-index: 2; pointer-events: none; opacity: var(--op, 0); }
+.rail .wrap { display: flex; align-items: center; gap: 18px; font: 500 12px var(--mono); color: var(--muted); }
+.rail .who { color: var(--ink-2); padding-right: 18px; border-right: 1px solid var(--line-2); }
+.rail ol { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.rail li { display: flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(6,8,11,.55); transition: color .4s, border-color .4s, background .4s; }
+.rail li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); transition: background .4s, box-shadow .4s; }
+.rail li.on { color: var(--ink); border-color: rgba(68,147,248,.45); background: rgba(68,147,248,.1); }
+.rail li.on::before { background: var(--blue); box-shadow: 0 0 10px var(--blue); }
+
+/* ---- after the story: the details, on solid ground */
+.after { background: var(--bg); border-top: 1px solid var(--line); }
+.after section { padding: 110px 0; }
+.after section + section { border-top: 1px solid var(--line); }
+.after h2 { font-size: clamp(32px, 3.6vw, 48px); }
+.kicker { font-size: 14px; color: var(--blue); font-weight: 600; margin: 0 0 14px; }
+.truth { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 48px; }
+.truth h3 { font-size: 15px; font-weight: 620; margin: 0 0 18px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.truth ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+.truth li { color: var(--ink-2); padding-left: 26px; position: relative; font-size: 16.5px; }
+.truth li::before { content: ""; position: absolute; left: 0; top: .55em; width: 12px; height: 2px; border-radius: 2px; background: var(--blue); }
+.truth .not li::before { background: var(--muted); }
+.faq { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; }
+details { border-top: 1px solid var(--line); padding: 20px 0; }
+summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 20px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--muted); font-weight: 400; font-size: 20px; line-height: 1; transition: transform .2s; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { color: var(--ink-2); margin: 12px 0 0; font-size: 16px; }
+footer { border-top: 1px solid var(--line); padding: 36px 0 48px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+footer a { color: var(--ink-2); text-decoration: none; }
+
+@media (max-width: 900px) {
+  nav .links { display: none; }
+  nav .btn { margin-left: auto; }
+  .copy { align-items: flex-end; }
+  .copy .panel { background: linear-gradient(to top, rgba(6,8,11,.96) 72%, rgba(6,8,11,0)); padding: 48px 20px 5vh; width: 100%; }
+  .copy .panel > * { max-width: none; }
+  .ch.center .copy { padding-bottom: 0; }
+  .live { margin-top: 26px; }
+  .lede { margin-bottom: 24px; font-size: 17px; }
+  .sub { font-size: 17px; }
+  .truth, .faq { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .after section { padding: 80px 0; }
+  .scrollhint, .webgl .rail { display: none; }
+}
+@media (max-height: 760px) { .scrollhint { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .scrollhint i { animation: none; }
+  .btn, .rail li, .rail li::before { transition: none; }
+}
+</style>
+</head>
+<body>
+<canvas id="world" aria-hidden="true"></canvas>
+<img class="poster" src="poster.svg" alt="">
+<!-- whatever the world needs from the server; the world never fetches. Escape < as < when rendering. -->
+<script id="tp-data" type="application/json">{"problemTitle":"Usage · last 30 days","relayTitle":"127.0.0.1:7777"}</script>
+
+<nav><div class="wrap">
+  <a class="brand" href="/">product</a>
+  <div class="links"><a href="#how">How it works</a><a href="#faq">FAQ</a></div>
+  <a class="btn small" href="#">Get it</a>
+  <span class="progress" aria-hidden="true"></span>
+</div></nav>
+
+<main>
+<!-- 0 · hero: copy left, the carrier large on the right -->
+<section class="ch hero" data-ch="0"><div class="copy"><div class="panel">
+  <h1>The promise, <em>in one line.</em></h1>
+  <p class="lede">Two sentences on what the reader gets and why it's different. Specific, no adjectives.</p>
+  <div class="cta"><a class="btn" href="#">Get it</a><a class="textlink" href="#how">How it works</a></div>
+  <div class="live">
+    <span class="live-dot" aria-hidden="true"></span>
+    <span><b class="num" data-to="6500000000">6.5B</b> of something real, counting up on load</span>
+    <span class="live-sub">A sample profile, not a real person</span>
+  </div>
+</div></div></section>
+
+<!-- 1 · the problem -->
+<section class="ch" data-ch="1"><div class="copy"><div class="panel">
+  <h2>The wrong belief. <em>The answer.</em></h2>
+  <p class="sub">Two or three sentences. State the problem the reader already feels, then what the product changes about it.</p>
+</div></div></section>
+
+<!-- 2 · the mechanism -->
+<section class="ch" data-ch="2" id="how"><div class="copy"><div class="panel">
+  <h2>So it does the thing at the source.</h2>
+  <p class="sub">The mechanism in plain words, with one concrete number: <b>1,873 units</b>, from a single run.</p>
+</div></div></section>
+
+<!-- 3 · close: centred, low, the carrier above -->
+<section class="ch center" data-ch="3"><div class="copy"><div class="panel">
+  <h2>Stop claiming. Start proving.</h2>
+  <p class="sub">One sentence that tells the reader what happens when they click.</p>
+  <div class="cta"><a class="btn" href="#">Get it</a></div>
+</div></div></section>
+</main>
+
+<div class="scrollhint" aria-hidden="true">Scroll to follow the story<i></i></div>
+<div class="rail" aria-hidden="true"><div class="wrap">
+  <span class="who">one run · 1,873 units</span>
+  <ol><li data-step="1">seen</li><li data-step="2">counted</li></ol>
+</div></div>
+
+<div class="after" id="after">
+<section><div class="wrap">
+  <p class="kicker">What it proves</p>
+  <h2>Precise about what it means.</h2>
+  <div class="truth">
+    <div><h3>Proves</h3><ul><li>The first thing it really guarantees.</li><li>The second.</li></ul></div>
+    <div class="not"><h3>Doesn't prove</h3><ul><li>The honest limit.</li><li>The other one.</li></ul></div>
+  </div>
+</div></section>
+<section id="faq"><div class="wrap">
+  <p class="kicker">FAQ</p>
+  <h2>Questions worth asking.</h2>
+  <div class="faq">
+    <div><details><summary>A question?</summary><p>An answer.</p></details></div>
+    <div><details><summary>Another?</summary><p>An answer.</p></details></div>
+  </div>
+</div></section>
+<footer><div class="wrap"><span>product · <a href="#">Terms</a> · <a href="#">Privacy</a></span><span>A four-word sign-off.</span></div></footer>
+</div>
+
+<script>
+// copy never runs under the nav or off the bottom: type scales down until each chapter fits its screen
+const fit = () => document.querySelectorAll(".copy .panel").forEach((p) => {
+  const cs = getComputedStyle(p.parentElement), room = innerHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  let f = 1;
+  p.style.setProperty("--fit", 1);
+  for (let k = 0; k < 4 && p.offsetHeight > room && f > 0.55; k++) {
+    f = Math.max(0.55, f * Math.max(0.85, room / p.offsetHeight));
+    p.style.setProperty("--fit", f.toFixed(3));
+  }
+});
+fit();
+addEventListener("resize", fit);
+document.fonts?.ready.then(fit);
+const bar = document.querySelector(".progress"), hint = document.querySelector(".scrollhint");
+addEventListener("scroll", () => {
+  const max = document.getElementById("after").offsetTop - innerHeight;
+  bar.style.setProperty("--p", Math.min(1, scrollY / Math.max(1, max)).toFixed(4));
+  hint.style.setProperty("--op", Math.max(0, 1 - scrollY / 300).toFixed(3));
+}, { passive: true });
+// the headline climbs to its number once the hero is in its final layout (the 3D world up, or the poster fallback)
+const num = document.querySelector(".live .num");
+if (num && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const to = +num.dataset.to, done = num.textContent;
+  const compact = (n) => { for (const [d, u] of [[1e12, "T"], [1e9, "B"], [1e6, "M"], [1e3, "K"]]) if (n >= d) return (n / d).toFixed(1).replace(/\.0$/, "") + u; return String(Math.round(n)); };
+  const go = () => {
+    const t0 = performance.now() + 400;
+    Object.assign(num.style, { display: "inline-block", minWidth: done.length + "ch", textAlign: "right" });
+    num.textContent = "0";
+    const tick = (t) => {
+      const p = Math.min(1, Math.max(0, (t - t0) / 2200));
+      num.textContent = p < 1 ? compact(Math.pow(to, 1 - Math.pow(1 - p, 3))) : done;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const ready = () => /\b(no)?webgl\b/.test(document.documentElement.className);
+  if (ready()) go();
+  else new MutationObserver((_, mo) => { if (ready()) { mo.disconnect(); go(); } }).observe(document.documentElement, { attributeFilter: ["class"] });
+}
+</script>
+<script>setTimeout(() => document.documentElement.classList.contains("webgl") || document.documentElement.classList.add("nowebgl"), 5000)</script>
+<script type="module" src="./world.js"></script>
+</body>
+</html>

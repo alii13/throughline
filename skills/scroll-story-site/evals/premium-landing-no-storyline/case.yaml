@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: premium-landing-no-storyline
+expected_outcome: |
+  The run derives a storyline first (drafts a chapter table for a "this makes something beautiful"
+  or "faster/easier" arc and shows it) then builds ./reel-site/ as a scroll-driven Three.js story.
+  The carrier is a film frame, reel, or lens element; the material family is matte ceramic/paper
+  with teal accents on a lifted dark or off-white-tinted background, not cool blue steel; scenes are
+  about folders, clips, captions and export, not tokens or seals; chapter count fits the arc (6 to 9)
+  rather than copying tokenproof's twelve. Copy fits on laptop screens and the fallback exists.

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "throughline",
+  "description": "Scroll-story 3D homepages, as a Claude Code skill.",
+  "owner": { "name": "Shekh Aliul", "url": "https://github.com/alii13" },
+  "plugins": [
+    {
+      "name": "throughline",
+      "source": "./",
+      "description": "Builds scroll-story 3D homepages: one story, one Three.js world, one object that carries it from the first screen to your product.",
+      "homepage": "https://github.com/alii13/throughline",
+      "license": "MIT",
+      "keywords": ["skills", "threejs", "3d", "scrollytelling", "landing-page"]
+    }
+  ]
+}

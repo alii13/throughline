@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: story-from-chapter-list
+expected_outcome: |
+  A static site in ./latchkey-site/ with index.html and world.js that tells the eight-chapter story
+  through a persistent Three.js world driven by native scroll. The carrier is a key (or similarly
+  derived from the product), not a medallion; the palette is warm amber on near-black, not blue steel;
+  each chapter has its own scene (a token left in an env, a scoped door, an expiring key, a log, logo
+  tiles live vs coming, a monthly price). Copy panels use the fit mechanism and the no-WebGL fallback
+  exists. The result does not read as tokenproof with the words changed.

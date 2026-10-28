@@ -1,0 +1,11 @@
+{
+  "name": "throughline",
+  "version": "1.0.0",
+  "description": "Builds scroll-story 3D homepages: one story, one Three.js world, one object that carries it from the first screen to your product.",
+  "author": { "name": "Shekh Aliul", "url": "https://github.com/alii13" },
+  "homepage": "https://github.com/alii13/throughline",
+  "repository": "https://github.com/alii13/throughline",
+  "license": "MIT",
+  "keywords": ["skills", "threejs", "3d", "scrollytelling", "landing-page", "homepage"],
+  "skills": "./skills"
+}
